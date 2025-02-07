@@ -360,22 +360,7 @@ body {
 
 <script>
    function aceptarInvitacion() {
-    fetch('invitacion.png')  // Ruta de la imagen
-        .then(response => response.blob())
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'invitacion.png';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(url);
-
-            // Mostrar el botón "Confirmar asistencia"
-            document.getElementById("btnConfirmar").style.display = "inline-block";
-        })
-        .catch(error => console.error('Error al descargar la imagen:', error));
+    window.open('invitacion.png', '_blank');
 }
 
 
