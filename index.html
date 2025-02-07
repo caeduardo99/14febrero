@@ -359,18 +359,25 @@ body {
   </script>
 
 <script>
-    function aceptarInvitacion() {
-        // Descargar el PDF de la invitación
-        const link = document.createElement('a');
-        link.href = 'invitacion.png';  // Asegúrate de que el archivo invitacion.pdf esté en el mismo directorio
-        link.download = 'invitacion.png';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+   function aceptarInvitacion() {
+    fetch('invitacion.png')  // Ruta de la imagen
+        .then(response => response.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'invitacion.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
 
-        // Mostrar el botón "Confirmar asistencia"
-        document.getElementById("btnConfirmar").style.display = "inline-block";
-    }
+            // Mostrar el botón "Confirmar asistencia"
+            document.getElementById("btnConfirmar").style.display = "inline-block";
+        })
+        .catch(error => console.error('Error al descargar la imagen:', error));
+}
+
 
     function confirmarAsistencia() {
         let numero = "5930969034831";
